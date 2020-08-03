@@ -12,18 +12,27 @@ app.use(json())
 app.use(urlencoded({ extended: true }))
 app.use(morgan('dev'))
 
-app.get('/data', (req, res) => {
+const log = (req, res, next) => {
+    console.log(`Logging request body: ${JSON.stringify(req.body)}`);
+    next();
+};
+
+app.use(log); // For entire server
+
+app.get('/data', [log, log, log], (req, res) => {
     res.send({
-        message: 'Hello from GET /data',
+        data: [1, 2, 3],
     });
 });
 
 app.post('/data', (req, res) => {
-    res.send(`This is the request body: ${JSON.stringify(req.body)}`);
+    res.send({
+        ok: true,
+    });
 });
 
 const PORT = 3000;
-
+ 
 export const start = () => {
     app.listen(PORT, () => {
         console.log(`Localhost is connected on port: ${PORT}`);
