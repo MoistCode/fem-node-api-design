@@ -12,19 +12,14 @@ app.use(json())
 app.use(urlencoded({ extended: true }))
 app.use(morgan('dev'))
 
-// Routes
-app.get('/', (req, res) => {
+app.get('/data', (req, res) => {
     res.send({
-        message: 'Hello!',
+        message: 'Hello from GET /data',
     });
 });
 
-app.post('/', (req, res) => {
-    console.log(req.body);
-
-    res.send({
-        message: 'OK',
-    });
+app.post('/data', (req, res) => {
+    res.send(`This is the request body: ${JSON.stringify(req.body)}`);
 });
 
 const PORT = 3000;
