@@ -12,4 +12,25 @@ app.use(json())
 app.use(urlencoded({ extended: true }))
 app.use(morgan('dev'))
 
-export const start = () => {}
+// Routes
+app.get('/', (req, res) => {
+    res.send({
+        message: 'Hello!',
+    });
+});
+
+app.post('/', (req, res) => {
+    console.log(req.body);
+
+    res.send({
+        message: 'OK',
+    });
+});
+
+const PORT = 3000;
+
+export const start = () => {
+    app.listen(PORT, () => {
+        console.log(`Localhost is connected on port: ${PORT}`);
+    });
+}
