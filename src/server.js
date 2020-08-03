@@ -14,6 +14,14 @@ app.use(morgan('dev'))
 
 const log = (req, res, next) => {
     console.log(`Logging request body: ${JSON.stringify(req.body)}`);
+    console.log(`Logging request log count: ${JSON.stringify(req.timesLogIsCalled)}`);
+
+    if (Number.isInteger(req.timesLogIsCalled)) {
+        req.timesLogIsCalled += 1;
+    } else {
+        req.timesLogIsCalled = 1;
+    }
+
     next();
 };
 
